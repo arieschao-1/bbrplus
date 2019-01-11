@@ -21,50 +21,15 @@ dog250大神提到了bbr初版的两个问题：bbr在高丢包率下易失速�
 由于我只用centos7以及编译内核是一个相当折腾的事，  
 目前只编译了适合CentOS的内核，Debian/Ubuntu有时间的话折腾一个。  
 
-一键脚本(CentOS)：  
+一键脚本
+这个脚本，集合了BBR原版、BBR魔改、BBR Plus和锐速
+支持Centos 7, Debian 8/9, Ubuntu 16/18
+不支持OpenVZ和LXC
+资料来源：https://zhujiwiki.com/8563/﻿
+
 ```bash
-wget "https://github.com/cx9208/bbrplus/raw/master/ok_bbrplus_centos.sh" && chmod +x ok_bbrplus_centos.sh && ./ok_bbrplus_centos.sh
+wget "https://github.com/chiakge/Linux-NetSpeed/raw/master/tcp.sh" && chmod +x tcp.sh && ./tcp.sh
 ```
-安装后，执行uname -r，显示4.14.89则切换内核成功  
-执行lsmod | grep bbr，显示有bbrplus则开启成功   
-
-# 手动安装方法：  
-1.  
-卸载本机的锐速（如果有）  
-
-2.  
-下载内核  
-wget https://github.com/cx9208/bbrplus/raw/master/centos/x86_64/kernel-4.14.89-1.x86_64.rpm  
-
-3.  
-安装内核  
-yum install -y kernel-4.14.89-1.x86_64.rpm  
-
-4.  
-切换启动内核  
-grub2-set-default 'CentOS Linux (4.14.89) 7 (Core)'  
-
-5.  
-设置fq  
-echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf  
-设置bbrplus  
-echo "net.ipv4.tcp_congestion_control=bbrplus" >> /etc/sysctl.conf  
-
-6.  
-重启  
-reboot  
-
-7.
-检查内核版本  
-uname -r  
-显示4.14.89则成功  
-
-检查bbrplus是否已经启动  
-lsmod | grep bbrplus  
-显示有tcp_bbrplus则成功  
-
-# 卸载方法：  
-待补充  
-
-# 内核编译：  
-编写中，待补充  
+安装后，按照提示运行
+卸载本机的锐速（如果有）
+与BBR原版，BBR魔改，锐速互不兼容
